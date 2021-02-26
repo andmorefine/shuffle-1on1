@@ -1,0 +1,49 @@
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  line-height: 1.2;
+}
+.form-check-label {
+  cursor: pointer;
+  &:hover {
+    background: #f0eeef;
+  }
+}
+
+.row {
+  align-items: flex-start;
+}
+.card {
+  margin-bottom: 1rem;
+}
+
+.h1 {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.h6 {
+  text-align: center;
+}
+
+hr {
+  margin: 0.6rem 0;
+}
+
+.result-link {
+  cursor: pointer;
+  &:hover, &:active {
+    opacity: .8;
+  }
+}
+
+.result-correct {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+}
+
+.result-incorrect {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
