@@ -12,7 +12,7 @@ export default function Home() {
         <Row>
           <Col sm={4} md={3}>
             <Card>
-              <Link href="/result">
+              <Link href="/shuffle">
                 <a className="list-group-item list-group-item-action">シャッフル1on1</a>
               </Link>
             </Card>
