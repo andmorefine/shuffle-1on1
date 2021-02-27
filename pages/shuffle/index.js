@@ -142,9 +142,4 @@ const ShuffleIndex = ({ posts }) => {
   )
 }
 
-export const getStaticProps = async () => {
-  const posts = ''
-  return { props: { posts } }
-}
-
 export default ShuffleIndex
