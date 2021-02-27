@@ -25,7 +25,8 @@ const ShuffleIndex = ({ posts }) => {
 
   useEffect(() => {
     const storageObject = typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem(storageName)) : []
-    setParticipant(storageObject)
+    const object = storageObject ? storageObject : []
+    setParticipant(object)
   }, [])
 
   const setStorage = () => {
