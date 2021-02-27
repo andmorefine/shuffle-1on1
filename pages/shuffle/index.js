@@ -83,6 +83,12 @@ const ShuffleIndex = ({ posts }) => {
     return `${location.protocol}//${location.hostname}${router.pathname}/`
   }
 
+  const handleResultLink = e => {
+    e.preventDefault()
+
+    router.push(`/shuffle/${encrypt}`)
+  }
+
   return (
     <Layout title="参加人">
       <h1 className="h1">参加人</h1>
@@ -125,16 +131,23 @@ const ShuffleIndex = ({ posts }) => {
           ))}
           {result.length > 0 ? (
             <>
-              <h5 className="border-bottom">URL</h5>
-              <InputGroup className="my-3">
-                <FormControl
-                  readOnly
-                  value={`${hostPath()}${encrypt}`}
-                />
-                <InputGroup.Append>
-                  <Button variant="outline-secondary">コピー</Button>
-                </InputGroup.Append>
-              </InputGroup>
+              <div className="mt-4 p-3 border rounded">
+                <h5 className="border-bottom">共有URL</h5>
+                <InputGroup className="my-3">
+                  <FormControl
+                    readOnly
+                    value={`${hostPath()}${encrypt}`}
+                  />
+                  <InputGroup.Append>
+                    <Button variant="outline-secondary">コピー</Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              </div>
+              <div className="text-center my-3">
+                <Button variant='outline-primary' size="lg" onClick={handleResultLink}>
+                  組み合わせページを表示
+                </Button>
+              </div>
             </>
           ) : (<></>)}
         </Container>
