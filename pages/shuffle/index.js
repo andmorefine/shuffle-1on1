@@ -1,9 +1,11 @@
 import Link from 'next/link'
-import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
 import Layout from '../../components/layout'
 import {
   Container, InputGroup, FormControl, Button, ListGroup, Row, Col 
-} from 'react-bootstrap';
+} from 'react-bootstrap'
+import * as crypto from '../../lib/crypto'
 
 const shuffle = ([...array]) => {
   for (let i = array.length - 1; i >= 0; i--) {
@@ -14,9 +16,11 @@ const shuffle = ([...array]) => {
 }
 
 const ShuffleIndex = ({ posts }) => {
+  const router = useRouter()
   const [result, setResult] = useState([])
   const [participant, setParticipant] = useState([])
   const [name, setName] = useState('')
+  const [encrypt, setEncrypt] = useState('')
   const storageName = 'participant'
 
   useEffect(() => {
@@ -67,6 +71,15 @@ const ShuffleIndex = ({ posts }) => {
       persons.slice(-1)[0].person2 = `${lastPerson}(${residuePerson})`
     }
     setResult(persons)
+
+    const raw = JSON.stringify(persons) // 暗号化する対象。stringなら何でも。
+    setEncrypt(crypto.getEncryptedString(raw))
+    // const decrypted = crypto.getDecryptedString(encrypted)
+    // console.log(`decrypted: ${decrypted}`)
+  }
+
+  const hostPath = e => {
+    return `${location.protocol}//${location.hostname}${router.pathname}/`
   }
 
   return (
@@ -109,6 +122,20 @@ const ShuffleIndex = ({ posts }) => {
               <Col>{person.person2}</Col>
             </Row>
           ))}
+          {result.length > 0 ? (
+            <>
+              <h5 className="border-bottom">URL</h5>
+              <InputGroup className="my-3">
+                <FormControl
+                  readOnly
+                  value={`${hostPath()}${encrypt}`}
+                />
+                <InputGroup.Append>
+                  <Button variant="outline-secondary">コピー</Button>
+                </InputGroup.Append>
+              </InputGroup>
+            </>
+          ) : (<></>)}
         </Container>
       </Container>
     </Layout>
