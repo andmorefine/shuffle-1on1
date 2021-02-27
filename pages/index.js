@@ -9,15 +9,13 @@ export default function Home() {
 
       <Container>
         <h1 className="h1">シャッフル1on1</h1>
-        <Row>
-          <Col sm={4} md={3}>
-            <Card>
-              <Link href="/shuffle">
-                <a className="list-group-item list-group-item-action">シャッフル1on1</a>
-              </Link>
-            </Card>
-          </Col>
-        </Row>
+        <div className="d-flex justify-content-center">
+          <div className="text-center">
+            <Link href="/shuffle">
+              <a className="list-group-item list-group-item-action">スタート</a>
+            </Link>
+          </div>
+        </div>
       </Container>
     </Layout>
   )

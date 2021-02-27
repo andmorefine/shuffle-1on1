@@ -23,6 +23,15 @@ const ShuffleIndex = ({ posts }) => {
   const [encrypt, setEncrypt] = useState('')
   const storageName = 'participant'
 
+  const [copySuccess, setCopySuccess] = useState('')
+
+  const handleCopy = e => {
+    document.getElementById('shareLink').select()
+    document.execCommand("copy")
+    document.getElementById('shareLink').focus()
+    setCopySuccess('Copied!');
+  }
+
   useEffect(() => {
     const storageObject = typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem(storageName)) : []
     const object = storageObject ? storageObject : []
@@ -46,6 +55,13 @@ const ShuffleIndex = ({ posts }) => {
   }
 
   const handleClick = e => {
+    if (!name) return false
+
+    setParticipant([...participant, name])
+    setName('')
+  }
+
+  const handleOnKeyPress = e => {
     if (e.key != 'Enter' || !name) return false
 
     setParticipant([...participant, name])
@@ -98,7 +114,7 @@ const ShuffleIndex = ({ posts }) => {
             placeholder="あだ名"
             value={name}
             onChange={handleChange}
-            onKeyPress={handleClick}
+            onKeyPress={handleOnKeyPress}
           />
           <InputGroup.Append>
             <Button variant="outline-secondary" onClick={handleClick}>追加</Button>
@@ -136,10 +152,11 @@ const ShuffleIndex = ({ posts }) => {
                 <InputGroup className="my-3">
                   <FormControl
                     readOnly
+                    id="shareLink"
                     value={`${hostPath()}${encrypt}`}
                   />
                   <InputGroup.Append>
-                    <Button variant="outline-secondary">コピー</Button>
+                    <Button variant="outline-secondary" onClick={handleCopy}>コピー</Button>
                   </InputGroup.Append>
                 </InputGroup>
               </div>

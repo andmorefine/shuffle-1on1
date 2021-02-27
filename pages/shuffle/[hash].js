@@ -12,6 +12,14 @@ const Hash = () => {
   const { hash } = router.query
 
   const [result, setResult] = useState([])
+  const [copySuccess, setCopySuccess] = useState('')
+
+  const handleCopy = e => {
+    document.getElementById('shareLink').select()
+    document.execCommand("copy")
+    document.getElementById('shareLink').focus()
+    setCopySuccess('Copied!');
+  }
 
   useEffect(() => {
     if (!hash) return
@@ -64,12 +72,14 @@ const Hash = () => {
               <InputGroup className="my-3">
                 <FormControl
                   readOnly
+                  id="shareLink"
                   value={`${hostPath()}${hash}`}
                 />
                 <InputGroup.Append>
-                  <Button variant="outline-secondary">コピー</Button>
+                  <Button variant="outline-secondary" onClick={handleCopy}>コピー</Button>
                 </InputGroup.Append>
               </InputGroup>
+              <div className="text-end">{copySuccess}</div>
             </div>
             <div className="text-center my-3">
               <Button variant='outline-secondary' onClick={handleShuffleLink}>
