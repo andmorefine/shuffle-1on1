@@ -50,3 +50,11 @@ hr {
   background-color: #f8d7da;
   border-color: #f5c6cb;
 }
+
+.bi-x-square-delete {
+  cursor: pointer;
+  &:hover, &:active {
+    opacity: .8;
+    color: #dc3545;
+  }
+}

@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react';
 import Layout from '../../components/layout'
-import { Container, InputGroup, FormControl, Button, ListGroup } from 'react-bootstrap';
+import {
+  Container, InputGroup, FormControl, Button, ListGroup, Row, Col 
+} from 'react-bootstrap';
 
 const shuffle = ([...array]) => {
   for (let i = array.length - 1; i >= 0; i--) {
@@ -50,18 +52,21 @@ const ShuffleIndex = ({ posts }) => {
 
     setStorage()
     const shuffled = shuffle(participant)
-    console.log(shuffled)
     const halfStart = shuffled.slice(0, shuffled.length/2)
     const halfEnd = shuffled.slice(shuffled.length/2)
-    console.log(halfStart)
-    console.log(halfEnd)
 
     const persons = halfStart.map((person, index) => ({
       person1: person,
       person2: halfEnd[index],
     }))
+
+    // 偶数ではない場合
+    if ((shuffled.length % 2) > 0) {
+      const residuePerson = halfEnd.slice(-1)[0]
+      const lastPerson = persons.slice(-1)[0].person2
+      persons.slice(-1)[0].person2 = `${lastPerson}(${residuePerson})`
+    }
     setResult(persons)
-    console.log(result)
   }
 
   return (
@@ -76,15 +81,15 @@ const ShuffleIndex = ({ posts }) => {
             onKeyPress={handleClick}
           />
           <InputGroup.Append>
-            <Button variant="outline-secondary" onClick={handleClick}>Button</Button>
+            <Button variant="outline-secondary" onClick={handleClick}>追加</Button>
           </InputGroup.Append>
         </InputGroup>
 
         <ListGroup variant="flush" >
           {participant.map((item, index) => (
             <ListGroup.Item key={index} className="d-flex justify-content-between">
-              {item}
-              <Button size="sm" variant="outline-secondary" onClick={e => handleDelete(e, index)}>x</Button>
+              <i className="bi bi-person">　{item}</i>
+              <i className="bi bi-x-square bi-x-square-delete" onClick={e => handleDelete(e, index)}></i>
             </ListGroup.Item>
           ))}
         </ListGroup>
@@ -95,12 +100,16 @@ const ShuffleIndex = ({ posts }) => {
           </Button>
         </div>
 
-        {result.map((person, index) => (
-          <ListGroup.Item key={index} className="d-flex justify-content-between">
-            {person.person1}
-            {person.person2}
-          </ListGroup.Item>
-        ))}
+        <Container>
+          {result.map((person, index) => (
+            <Row key={index} className="mb-2 border-bottom">
+              <Col xs={2} className="bg-info text-white text-center">{index + 1}組</Col>
+              <Col>{person.person1}</Col>
+              <Col xs={1}><i className="bi bi-arrow-left-right"></i></Col>
+              <Col>{person.person2}</Col>
+            </Row>
+          ))}
+        </Container>
       </Container>
     </Layout>
   )
