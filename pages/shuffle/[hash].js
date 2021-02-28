@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect, useRef } from 'react'
 import Layout from '../../components/layout'
+import ButtonLine from '../../components/button_line'
 import {
   Container, InputGroup, FormControl, Button, ListGroup, Row, Col, Overlay, Tooltip
 } from 'react-bootstrap'
@@ -37,6 +38,9 @@ const Hash = () => {
   }, [hash])
 
   const hostPath = e => {
+    if (typeof location === 'undefined') {
+      return false
+    }
     return `${location.protocol}//${location.hostname}/shuffle/`
   }
 
@@ -45,6 +49,8 @@ const Hash = () => {
 
     router.push(`/shuffle`)
   }
+
+  const sharePath = `https://shuffle-1on1.vercel.app/shuffle/${hash}`
 
   return (
     <Layout title="組み合わせページ">
@@ -85,6 +91,9 @@ const Hash = () => {
                   </Overlay>
                 </InputGroup.Append>
               </InputGroup>
+              <div className="text-end">
+                <ButtonLine url={`${hostPath()}${hash}`}></ButtonLine>
+              </div>
             </div>
             <div className="text-center my-3">
               <Button variant='outline-secondary' onClick={handleShuffleLink}>

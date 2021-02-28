@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect, useRef } from 'react'
 import Layout from '../../components/layout'
+import ButtonLine from '../../components/button_line'
 import {
   Container, InputGroup, FormControl, Button, ListGroup, Row, Col, Overlay, Tooltip 
 } from 'react-bootstrap'
@@ -165,6 +166,9 @@ const ShuffleIndex = ({ posts }) => {
                     </Overlay>
                   </InputGroup.Append>
                 </InputGroup>
+                <div className="text-end">
+                  <ButtonLine url={`${hostPath()}${encrypt}`}></ButtonLine>
+                </div>
               </div>
               <div className="text-center my-3">
                 <Button variant='outline-primary' size="lg" onClick={handleResultLink}>

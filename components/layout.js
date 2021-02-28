@@ -16,6 +16,7 @@ export default function Layout({ children, title }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
         <link rel="icon" href="/favicon.ico" />
+        <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
       </Head>
 
       <Header />
