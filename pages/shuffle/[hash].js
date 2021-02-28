@@ -57,7 +57,6 @@ const Hash = () => {
       <h1 className="h1">組み合わせページ</h1>
       {result.length < 1 ? (
         <Container fluid className="text-center">
-          <p>※ ページは存在しないか、期限切れで削除されています。</p>
           <div className="text-center my-3">
             <Button variant='outline-secondary' onClick={handleShuffleLink}>
               シャッフルやり直す
