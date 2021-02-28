@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Layout from '../../components/layout'
 import {
-  Container, InputGroup, FormControl, Button, ListGroup, Row, Col 
+  Container, InputGroup, FormControl, Button, ListGroup, Row, Col, Overlay, Tooltip
 } from 'react-bootstrap'
 import * as crypto from '../../lib/crypto'
 
@@ -13,8 +13,11 @@ const Hash = () => {
 
   const [result, setResult] = useState([])
   const [copySuccess, setCopySuccess] = useState('')
+  const [show, setShow] = useState(false);
+  const target = useRef(null)
 
   const handleCopy = e => {
+    setShow(!show)
     document.getElementById('shareLink').select()
     document.execCommand("copy")
     document.getElementById('shareLink').focus()
@@ -76,10 +79,12 @@ const Hash = () => {
                   value={`${hostPath()}${hash}`}
                 />
                 <InputGroup.Append>
-                  <Button variant="outline-secondary" onClick={handleCopy}>コピー</Button>
+                  <Button ref={target} variant="outline-secondary" onClick={handleCopy}>コピー</Button>
+                  <Overlay target={target.current} show={show} placement="top">
+                    <Tooltip>{copySuccess}</Tooltip>
+                  </Overlay>
                 </InputGroup.Append>
               </InputGroup>
-              <div className="text-end">{copySuccess}</div>
             </div>
             <div className="text-center my-3">
               <Button variant='outline-secondary' onClick={handleShuffleLink}>

@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Layout from '../../components/layout'
 import {
-  Container, InputGroup, FormControl, Button, ListGroup, Row, Col 
+  Container, InputGroup, FormControl, Button, ListGroup, Row, Col, Overlay, Tooltip 
 } from 'react-bootstrap'
 import * as crypto from '../../lib/crypto'
 
@@ -22,10 +22,13 @@ const ShuffleIndex = ({ posts }) => {
   const [name, setName] = useState('')
   const [encrypt, setEncrypt] = useState('')
   const storageName = 'participant'
+  const [show, setShow] = useState(false);
+  const target = useRef(null)
 
   const [copySuccess, setCopySuccess] = useState('')
 
   const handleCopy = e => {
+    setShow(!show)
     document.getElementById('shareLink').select()
     document.execCommand("copy")
     document.getElementById('shareLink').focus()
@@ -156,7 +159,10 @@ const ShuffleIndex = ({ posts }) => {
                     value={`${hostPath()}${encrypt}`}
                   />
                   <InputGroup.Append>
-                    <Button variant="outline-secondary" onClick={handleCopy}>コピー</Button>
+                    <Button ref={target} variant="outline-secondary" onClick={handleCopy}>コピー</Button>
+                    <Overlay target={target.current} show={show} placement="top">
+                      <Tooltip>{copySuccess}</Tooltip>
+                    </Overlay>
                   </InputGroup.Append>
                 </InputGroup>
               </div>
