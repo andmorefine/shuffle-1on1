@@ -9,7 +9,8 @@ const Header = () => (
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="/shuffle">1on1</Nav.Link>
+              <Nav.Link href="/shuffle">ゲスト</Nav.Link>
+              <Nav.Link href="/rooms">ルーム</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

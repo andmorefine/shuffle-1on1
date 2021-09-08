@@ -110,8 +110,8 @@ const ShuffleIndex = ({ posts }) => {
   }
 
   return (
-    <Layout title="参加人">
-      <h1 className="h1">参加人</h1>
+    <Layout title="参加メンバー">
+      <h1 className="h1">参加メンバー</h1>
       <Container fluid>
         <InputGroup className="mb-3">
           <FormControl
