@@ -41,7 +41,6 @@ const RoomShow = () => {
   const getRoom = () => {
     client.get({ endpoint: `shuffle_rooms/${id}` })
     .then((res) => {
-      console.log(res)
       setTitle(res.title)
       setParticipant(JSON.parse(res.menbers))
     })
@@ -92,7 +91,6 @@ const RoomShow = () => {
 
     axios.patch(`${url}/${id}`, data, config)
     .then((response) => {
-      console.log(response)
       getRoom()
     })
   }
@@ -116,6 +114,19 @@ const RoomShow = () => {
       persons.slice(-1)[0].person2 = `${lastPerson}(${residuePerson})`
     }
     setResult(persons)
+  }
+
+  const handleResultLink = e => {
+    e.preventDefault()
+
+    const data = {
+      room_id: id,
+      persons: JSON.stringify(result),
+    }
+    axios.post(`https://${process.env.NEXT_PUBLIC_DOMAIN}.microcms.io/api/v1/shuffle_resuluts`, data, config)
+    .then(({data}) => {
+      router.push(`/rooms/${id}/${data.id}`)
+    })
   }
 
   return (
@@ -178,6 +189,13 @@ const RoomShow = () => {
             <Col>{person.person2}</Col>
           </Row>
         ))}
+        {result.length > 0 ? (
+          <div className="text-center my-4">
+            <Button variant='outline-primary' size="lg" onClick={handleResultLink}>
+              組み合わせページを確定
+            </Button>
+          </div>
+        ) : (<></>)}
       </Container>
     </Layout>
   )
