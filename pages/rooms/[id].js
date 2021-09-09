@@ -130,7 +130,7 @@ const RoomShow = () => {
       room_id: id,
       persons: JSON.stringify(result),
     }
-    axios.post(`https://${process.env.NEXT_PUBLIC_DOMAIN}.microcms.io/api/v1/shuffle_resuluts`, data, config).then(({ data }) => {
+    axios.post(`https://${process.env.NEXT_PUBLIC_DOMAIN}.microcms.io/api/v1/shuffle_results`, data, config).then(({ data }) => {
       router.push(`/rooms/${id}/${data.id}`)
     })
   }

@@ -29,7 +29,7 @@ const ShuffleResult = () => {
   }
 
   const getResult = () => {
-    client.get({ endpoint: `shuffle_resuluts/${result_id}` }).then((res) => {
+    client.get({ endpoint: `shuffle_results/${result_id}` }).then((res) => {
       setResult(JSON.parse(res.persons))
     })
   }
