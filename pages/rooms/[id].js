@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect, useRef } from 'react'
 import Layout from '../../components/layout'
 import {
-  Container, Button, InputGroup, FormControl, ListGroup, Form, Row, Col
+  Container, Button, InputGroup, FormControl, ListGroup, Form, Row, Col, Toast
 } from 'react-bootstrap'
 
 const shuffle = ([...array]) => {
@@ -34,6 +34,7 @@ const RoomShow = () => {
   const { id } = router.query
 
   const [result, setResult] = useState([])
+  const [showToast, setToastShow] = useState(false)
   const [title, setTitle] = useState([])
   const [participant, setParticipant] = useState([])
   const [name, setName] = useState('')
@@ -84,6 +85,8 @@ const RoomShow = () => {
   const handleUpdate = e => {
     e.preventDefault()
 
+    setToastShow(true)
+
     const data = {
       title: title,
       menbers: JSON.stringify(participant),
@@ -118,6 +121,7 @@ const RoomShow = () => {
 
   const handleResultLink = e => {
     e.preventDefault()
+    handleUpdate(e)
 
     const data = {
       room_id: id,
@@ -131,6 +135,15 @@ const RoomShow = () => {
 
   return (
     <Layout title="組み合わせページ">
+      <div className="p-3 position-absolute top-0 end-0">
+        <Toast onClose={() => setToastShow(false)} className="bg-warning" show={showToast} delay={2000} autohide>
+          <Toast.Header closeButton={false}>
+            <strong className="me-auto">UPDATE!</strong>
+            <small>1 mins ago</small>
+          </Toast.Header>
+          <Toast.Body>OK!</Toast.Body>
+        </Toast>
+      </div>
       <h1 className="h1">組み合わせページ</h1>
 
       <Container fluid>
