@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import Header from './header'
 import Footer from './footer'
-import { Container, Nav, Navbar } from 'react-bootstrap';
-
+import { Container } from 'react-bootstrap'
 
 export default function Layout({ children, title }) {
   const defaultTitle = 'シャッフル'
@@ -20,9 +19,7 @@ export default function Layout({ children, title }) {
       </Head>
 
       <Header />
-      <Container>
-        {children}
-      </Container>
+      <Container>{children}</Container>
       <Footer />
     </>
   )

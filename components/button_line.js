@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 
 const ButtonLine = ({ url }) => {
-
   const [hasScript, setHasScript] = useState(false)
   const [isButtonLoaded, setIsButtonLoaded] = useState(false)
 
   useEffect(() => {
     const element = document.getElementById('line-it-button')
-    const script = document.createElement("script")
-    script.src = "https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js"
+    const script = document.createElement('script')
+    script.src = 'https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js'
     script.async = true
     script.defer = true
     if (element) {
@@ -36,8 +35,8 @@ const ButtonLine = ({ url }) => {
         data-url={url}
         data-color="default"
         data-size="large"
-        data-count="false">
-      </div>
+        data-count="false"
+      ></div>
     </>
   )
 }
