@@ -26,12 +26,15 @@ const config = {
 }
 const url = `https://${process.env.NEXT_PUBLIC_DOMAIN}.microcms.io/api/v1/shuffle_rooms`
 
+let intervalId = 0
+
 const RoomShow = () => {
   const router = useRouter()
   // パスパラメータから値を取得
   const { id } = router.query
 
   const [result, setResult] = useState([])
+  const [active, setActive] = useState(false)
   const [showToast, setToastShow] = useState(false)
   const [title, setTitle] = useState([])
   const [participant, setParticipant] = useState([])
@@ -101,9 +104,7 @@ const RoomShow = () => {
     })
   }
 
-  const handleShuffle = (e) => {
-    e.preventDefault()
-
+  const StartShuffle = (e) => {
     const shuffled = shuffle(participant)
     const halfStart = shuffled.slice(0, shuffled.length / 2)
     const halfEnd = shuffled.slice(shuffled.length / 2)
@@ -120,6 +121,20 @@ const RoomShow = () => {
       persons.slice(-1)[0].person2 = `${lastPerson}(${residuePerson})`
     }
     setResult(persons)
+  }
+
+  const handleShuffle = (e) => {
+    e.preventDefault()
+    if (!intervalId) {
+      intervalId = setInterval(function () {
+        StartShuffle(e)
+      }, 100)
+      setActive(true)
+    } else {
+      clearInterval(intervalId)
+      intervalId = 0
+      setActive(false)
+    }
   }
 
   const handleResultLink = (e) => {
@@ -190,7 +205,7 @@ const RoomShow = () => {
           disabled={participant.length > 2 ? false : true}
           onClick={handleShuffle}
         >
-          ★ ★ ★ シャッフル ★ ★ ★
+          ★ シャッフル : {!active ? 'スタート' : 'ストップ'} ★
         </Button>
       </div>
 
