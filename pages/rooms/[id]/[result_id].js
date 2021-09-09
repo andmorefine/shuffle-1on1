@@ -38,7 +38,7 @@ const ShuffleResult = () => {
     if (!id || !result_id) return
 
     getResult()
-  }, [id, result_id])
+  })
 
   const hostPath = (e) => {
     if (typeof location === 'undefined') return false

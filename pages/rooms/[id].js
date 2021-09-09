@@ -37,17 +37,18 @@ const RoomShow = () => {
   const [participant, setParticipant] = useState([])
   const [name, setName] = useState('')
 
-  const getRoom = () => {
-    client.get({ endpoint: `shuffle_rooms/${id}` }).then((res) => {
+  const getRoom = (room_id) => {
+    if (!room_id) return false
+
+    client.get({ endpoint: `shuffle_rooms/${room_id}` }).then((res) => {
       setTitle(res.title)
       setParticipant(JSON.parse(res.members))
     })
   }
-  useEffect(() => {
-    if (!id) return
 
-    getRoom()
-  }, [id])
+  useEffect(() => {
+    getRoom(id)
+  })
 
   const handleTilteChange = (e) => {
     setTitle(e.target.value)
