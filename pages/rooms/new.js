@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Layout from '../../components/layout'
 import { Container, Button, InputGroup, FormControl, ListGroup, Form } from 'react-bootstrap'
 
@@ -17,8 +17,6 @@ const RoomNew = () => {
   const [title, setTitle] = useState([])
   const [participant, setParticipant] = useState([])
   const [name, setName] = useState('')
-
-  useEffect(() => {}, [])
 
   const handleTilteChange = (e) => {
     setTitle(e.target.value)
