@@ -28,8 +28,8 @@ const ShuffleResult = () => {
     setCopySuccess('Copied!')
   }
 
-  const getResult = () => {
-    client.get({ endpoint: `shuffle_results/${result_id}` }).then((res) => {
+  const getResult = (room_result_id) => {
+    client.get({ endpoint: `shuffle_results/${room_result_id}` }).then((res) => {
       setResult(JSON.parse(res.persons))
     })
   }
@@ -37,8 +37,8 @@ const ShuffleResult = () => {
   useEffect(() => {
     if (!id || !result_id) return
 
-    getResult()
-  }, [id])
+    getResult(result_id)
+  }, [id, result_id])
 
   const hostPath = (e) => {
     if (typeof location === 'undefined') return false
